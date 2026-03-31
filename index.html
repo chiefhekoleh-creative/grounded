@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Grounded — Top Tier Agency</title>
+<title>Grounded — Creative Agency</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -27,9 +27,12 @@ background:rgba(0,0,0,0.4);backdrop-filter:blur(12px);
 border-bottom:1px solid var(--border);
 }
 
-nav a{color:var(--text);text-decoration:none;font-size:14px;opacity:.7}
+nav a{color:var(--text);text-decoration:none;font-size:14px;opacity:.7;transition:.3s}
 nav a:hover{opacity:1}
 nav ul{display:flex;gap:30px;list-style:none}
+
+.logo{height:28px;transition:.3s}
+.logo:hover{opacity:.7;transform:scale(1.05)}
 
 .hero{
 height:100vh;display:flex;flex-direction:column;
@@ -37,7 +40,7 @@ justify-content:center;align-items:center;text-align:center;
 position:relative;overflow:hidden;
 }
 
-.hero h1{font-size:4.5rem;font-weight:800}
+.hero h1{font-size:4.5rem;font-weight:800;letter-spacing:-1px}
 .hero p{max-width:600px;color:var(--muted);margin:20px 0}
 
 .glow{
@@ -48,43 +51,63 @@ opacity:.15;filter:blur(100px);pointer-events:none;
 
 .btn{
 background:var(--accent);color:black;padding:14px 26px;
-border-radius:10px;text-decoration:none;font-weight:600
+border-radius:10px;text-decoration:none;font-weight:600;
+transition:.3s;
 }
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(245,197,24,0.3)}
 
 section{padding:120px 40px;max-width:1200px;margin:auto}
+
+h2{font-size:2.2rem;margin-bottom:20px}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
 
 .card{
 background:var(--surface);padding:30px;border-radius:18px;
 border:1px solid var(--border);transition:.4s;
+position:relative;overflow:hidden;
 }
-.card:hover{transform:translateY(-8px);border-color:var(--accent)}
 
-.portfolio img{width:100%;border-radius:14px;filter:grayscale(100%);transition:.4s}
-.portfolio img:hover{filter:grayscale(0)}
+.card::after{
+content:"";position:absolute;inset:0;
+background:linear-gradient(120deg,transparent,rgba(245,197,24,0.15),transparent);
+opacity:0;transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+border-color:var(--accent);
+}
+
+.card:hover::after{opacity:1}
+
+.portfolio img{
+width:100%;border-radius:14px;
+filter:grayscale(100%) brightness(0.8);
+transition:.5s;
+}
+
+.portfolio img:hover{
+filter:grayscale(0%) brightness(1);
+transform:scale(1.03);
+}
 
 .fade{opacity:0;transform:translateY(40px);transition:1s}
 .fade.visible{opacity:1;transform:translateY(0)}
 
-footer{text-align:center;padding:60px;color:var(--muted);border-top:1px solid var(--border)}
-
-@media(max-width:768px){.hero h1{font-size:2.5rem}}
-</.logo {
-  height: 28px;
-  transition: 0.3s ease;
+footer{
+text-align:center;padding:60px;color:var(--muted);
+border-top:1px solid var(--border)
 }
 
-.logo:hover {
-  opacity: 0.7;
-  transform: scale(1.05);
-}>
+@media(max-width:768px){.hero h1{font-size:2.5rem}}
+</style>
 </head>
 
 <body>
 
 <nav>
-<img src="images/logo.png" alt="Grounded Logo" class="logo">
+<a href="#"><img src="images/logo.png" alt="Grounded Logo" class="logo"></a>
 <ul>
 <li><a href="#">Home</a></li>
 <li><a href="#services">Services</a></li>
@@ -95,9 +118,9 @@ footer{text-align:center;padding:60px;color:var(--muted);border-top:1px solid va
 
 <section class="hero">
 <div class="glow" id="glow"></div>
-<h1>Designing the Future of Brands</h1>
-<p>Rooted in craft. Elevated by impact.</p>
-<a href="#contact" class="btn">Start Project</a>
+<h1>Rooted in Craft.<br>Elevated by Impact.</h1>
+<p>We design bold, modern brand systems that move culture and drive results.</p>
+<a href="#contact" class="btn">Start a Project</a>
 </section>
 
 <section id="services" class="fade">
@@ -111,13 +134,13 @@ footer{text-align:center;padding:60px;color:var(--muted);border-top:1px solid va
 </section>
 
 <section id="work" class="fade">
-<h2>Case Studies</h2>
+<h2>Selected Work</h2>
 <div id="portfolio" class="grid portfolio"></div>
 </section>
 
 <section id="contact" class="fade">
 <h2>Let’s Work</h2>
-<p style="color:var(--muted);margin:20px 0">Have a vision? Let’s build it.</p>
+<p style="color:var(--muted);margin:20px 0">Have a vision? Let’s build something meaningful.</p>
 <a href="mailto:youremail@example.com" class="btn">Email Us</a>
 </section>
 
@@ -126,14 +149,14 @@ footer{text-align:center;padding:60px;color:var(--muted);border-top:1px solid va
 </footer>
 
 <script>
-// INTERACTIVE HERO GLOW
+// INTERACTIVE GLOW
 const glow = document.getElementById('glow');
 document.addEventListener('mousemove', e => {
   glow.style.left = e.clientX - 300 + 'px';
   glow.style.top = e.clientY - 300 + 'px';
 });
 
-// SCROLL ANIMATIONS
+// SCROLL ANIMATION
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.isIntersecting){entry.target.classList.add('visible')}
@@ -141,17 +164,20 @@ const observer = new IntersectionObserver(entries => {
 });
 document.querySelectorAll('.fade').forEach(el => observer.observe(el));
 
-// CMS-LIKE PORTFOLIO
+// CMS PORTFOLIO
 const projects = [
-  {title:"Moshoeshoe Walk", img:"images/moshoeshoe.jpg"},
-  {title:"GuardRisk Campaign", img:"images/guardrisk.jpg"},
-  {title:"Packaging Design", img:"images/packaging.jpg"}
+  {title:"Moshoeshoe Walk — Cultural Campaign", img:"images/moshoeshoe.jpg"},
+  {title:"GuardRisk — Financial Brand Campaign", img:"images/guardrisk.jpg"},
+  {title:"Packaging Design — Retail Product", img:"images/packaging.jpg"}
 ];
-  
+
 const container = document.getElementById('portfolio');
 projects.forEach(p => {
   const div = document.createElement('div');
-  div.innerHTML = `<img src="${p.img}?auto=format&fit=crop&w=600&q=80"><p style="margin-top:10px">${p.title}</p>`;
+  div.innerHTML = `
+    <img src="${p.img}">
+    <p style="margin-top:12px;font-weight:500">${p.title}</p>
+  `;
   container.appendChild(div);
 });
 </script>
